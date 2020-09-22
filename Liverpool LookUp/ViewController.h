@@ -13,6 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ViewController : UITableViewController
 - (IBAction)loadMoreAction:(id)sender;
 @property (weak, nonatomic) IBOutlet UISearchBar *inputSearchBar;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicator;
+@property (weak, nonatomic) IBOutlet UIButton *loadMoreButton;
+@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 
 @end
 

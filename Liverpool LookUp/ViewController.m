@@ -30,8 +30,10 @@
         productData = [[NSMutableArray alloc] init];
     }
     
-    //Will show footer ("Load More") if there are any more results
-    [self.tableView.tableFooterView setHidden:YES];
+    //Footer view handling
+    [self.statusLabel setHidden:YES];
+    [self.loadingIndicator setHidden:YES];
+    [self.loadMoreButton setHidden:YES];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -48,6 +50,32 @@
     
     [self makeLiverpoolRequestFor:lastInputString pageNumber:currentPage itemsPerPage:itemsPerPage];
     [self buildRecentSearchesView];
+    
+}
+
+-(void) setLoadingStatus:(NSString *) loadingStatus{
+    if([loadingStatus isEqualToString:@"loading"]){
+        [self.statusLabel setHidden:YES];
+        [self.loadingIndicator setHidden:NO];
+        [self.loadMoreButton setHidden:YES];
+    }else if([loadingStatus isEqualToString:@"not_loading"]){
+        [self.statusLabel setHidden:YES];
+        [self.loadingIndicator setHidden:YES];
+        [self.loadMoreButton setHidden:NO];
+    }else if([loadingStatus isEqualToString:@"cant_loadMore"]){
+        [self.statusLabel setHidden:YES];
+        [self.loadingIndicator setHidden:YES];
+        [self.loadMoreButton setHidden:YES];
+    }else if([loadingStatus isEqualToString:@"can_loadMore"]){
+        [self.statusLabel setHidden:YES];
+        [self.loadingIndicator setHidden:YES];
+        [self.loadMoreButton setHidden:NO];
+    }else{
+        [self.statusLabel setHidden:NO];
+        self.statusLabel.text = loadingStatus;
+        [self.loadingIndicator setHidden:YES];
+        [self.loadMoreButton setHidden:YES];
+    }
 }
 
 -(void) buildRecentSearchesView{
@@ -134,6 +162,8 @@
 
 -(void) makeLiverpoolRequestFor:(NSString *)searchItem pageNumber:(int)pNumber itemsPerPage:(int)iPerPage{
     
+    [self setLoadingStatus:@"loading"];
+    
     NSString *baseApiUrl = @"https://shoppapp.liverpool.com.mx/appclienteservices/services/v3/plp?force-%20plp=true";
 
     //Check if search string is valid
@@ -181,17 +211,25 @@
                       [newProduct setProductData:currentProduct];
                       [productData addObject:newProduct];
                   }
-                  NSLog(@"%i", productData.count);
-                  //Update on the main thread
-                  dispatch_async(dispatch_get_main_queue(), ^{
-                      if(productData.count < currentTotalNumRecs){
-                          //There are still records
-                          [self.tableView.tableFooterView setHidden:NO];
-                      }else{
-                          [self.tableView.tableFooterView setHidden:YES];
-                      }
-                      [self.tableView reloadData];
-                  });
+                  if(records.count == 0){
+                      //Update UI on the main thread
+                      dispatch_async(dispatch_get_main_queue(), ^{
+                          [productData removeAllObjects];
+                          [self.tableView reloadData];
+                          [self setLoadingStatus:@"No hubo resultados."];
+                      });
+                  }else{
+                      //Update UI on the main thread
+                      dispatch_async(dispatch_get_main_queue(), ^{
+                          if(productData.count < currentTotalNumRecs){
+                              //There are still records
+                              [self setLoadingStatus:@"can_loadMore"];
+                          }else{
+                              [self setLoadingStatus:@"cant_loadMore"];
+                          }
+                          [self.tableView reloadData];
+                      });
+                  }
               }
           }
         //NSLog(@"The response is - %@",responseDictionary);

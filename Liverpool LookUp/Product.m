@@ -34,7 +34,7 @@
     if([data objectForKey:@"listPrice"]){
         
         self.listPrice = [[data objectForKey:@"listPrice"] floatValue];
-        self.listPriceDisplay = [NSString stringWithFormat:@"$%f", self.listPrice];
+        self.listPriceDisplay = [NSString stringWithFormat:@"$%.02f", self.listPrice];
         
     }
 }

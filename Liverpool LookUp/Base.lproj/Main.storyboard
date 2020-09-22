@@ -26,6 +26,15 @@
                             <rect key="frame" x="0.0" y="842" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sin resultados" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4iQ-aR-Snm">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="7dp-Nm-EZf">
+                                    <rect key="frame" x="197" y="12" width="20" height="20"/>
+                                </activityIndicatorView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cLi-ge-pp5">
                                     <rect key="frame" x="20.666666666666657" y="2.3333333333333321" width="372.66666666666674" height="39.333333333333343"/>
                                     <state key="normal" title="Cargar más ..."/>
@@ -36,10 +45,16 @@
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
+                                <constraint firstItem="7dp-Nm-EZf" firstAttribute="centerX" secondItem="Wua-me-HgS" secondAttribute="centerX" id="04X-qU-Km0"/>
                                 <constraint firstItem="cLi-ge-pp5" firstAttribute="width" secondItem="Wua-me-HgS" secondAttribute="width" multiplier="0.9" id="0Yz-hw-yYB"/>
+                                <constraint firstItem="4iQ-aR-Snm" firstAttribute="centerY" secondItem="Wua-me-HgS" secondAttribute="centerY" id="2SY-QZ-vPq"/>
                                 <constraint firstItem="cLi-ge-pp5" firstAttribute="centerX" secondItem="Wua-me-HgS" secondAttribute="centerX" id="3sM-UO-qma"/>
                                 <constraint firstItem="cLi-ge-pp5" firstAttribute="height" secondItem="Wua-me-HgS" secondAttribute="height" multiplier="0.9" id="E70-dI-C3L"/>
+                                <constraint firstItem="4iQ-aR-Snm" firstAttribute="width" secondItem="Wua-me-HgS" secondAttribute="width" id="KY0-4J-kwo"/>
+                                <constraint firstItem="4iQ-aR-Snm" firstAttribute="centerX" secondItem="Wua-me-HgS" secondAttribute="centerX" id="WfM-Qo-MSy"/>
                                 <constraint firstItem="cLi-ge-pp5" firstAttribute="centerY" secondItem="Wua-me-HgS" secondAttribute="centerY" id="chx-LO-wz1"/>
+                                <constraint firstItem="7dp-Nm-EZf" firstAttribute="centerY" secondItem="Wua-me-HgS" secondAttribute="centerY" id="gQo-8q-qqG"/>
+                                <constraint firstItem="4iQ-aR-Snm" firstAttribute="height" secondItem="Wua-me-HgS" secondAttribute="height" id="vuv-G3-i4t"/>
                             </constraints>
                         </view>
                         <prototypes>
@@ -77,7 +92,7 @@
                                         <constraint firstItem="nWH-by-RiO" firstAttribute="centerY" secondItem="teu-KA-b8a" secondAttribute="centerY" id="3EV-tO-Uv8"/>
                                         <constraint firstItem="nWH-by-RiO" firstAttribute="height" secondItem="teu-KA-b8a" secondAttribute="height" multiplier="0.853333" id="3s9-XF-3wD"/>
                                         <constraint firstAttribute="trailing" secondItem="hfR-45-cer" secondAttribute="trailing" constant="9" id="A3K-VR-h4z"/>
-                                        <constraint firstItem="hfR-45-cer" firstAttribute="width" secondItem="nWH-by-RiO" secondAttribute="width" multiplier="0.756032" id="GYd-vk-PUk"/>
+                                        <constraint firstItem="hfR-45-cer" firstAttribute="width" secondItem="nWH-by-RiO" secondAttribute="width" id="GYd-vk-PUk"/>
                                         <constraint firstItem="xAp-H9-9G9" firstAttribute="width" secondItem="6fg-cJ-YFp" secondAttribute="width" id="IEW-ZP-UGM"/>
                                         <constraint firstAttribute="trailing" secondItem="6fg-cJ-YFp" secondAttribute="trailing" constant="20" id="S9V-EG-S9O"/>
                                         <constraint firstItem="6fg-cJ-YFp" firstAttribute="top" secondItem="teu-KA-b8a" secondAttribute="top" constant="16" id="Un6-am-Xnf"/>
@@ -104,6 +119,9 @@
                     </tableView>
                     <connections>
                         <outlet property="inputSearchBar" destination="rW0-tt-dz9" id="7CA-1u-B3Q"/>
+                        <outlet property="loadMoreButton" destination="cLi-ge-pp5" id="VaM-DM-W3b"/>
+                        <outlet property="loadingIndicator" destination="7dp-Nm-EZf" id="hab-Ec-h98"/>
+                        <outlet property="statusLabel" destination="4iQ-aR-Snm" id="TX1-Ln-arD"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="enV-WG-6SV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
