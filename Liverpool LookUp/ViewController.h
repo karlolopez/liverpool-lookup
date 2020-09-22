@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+NS_ASSUME_NONNULL_BEGIN
 
+@interface ViewController : UITableViewController
+- (IBAction)loadMoreAction:(id)sender;
+@property (weak, nonatomic) IBOutlet UISearchBar *inputSearchBar;
 
 @end
 
+NS_ASSUME_NONNULL_END
